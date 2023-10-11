@@ -1,0 +1,9 @@
+.prod-descrip
+{
+    display: inline-block;
+    width: 500px;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+
+}
