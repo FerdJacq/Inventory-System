@@ -26,7 +26,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::middleware(['web', 'auth'])->group(function () {
     Route::resource('products', ProductController::class);
-    
+
+    Route::post('products/add-stock', [ProductController::class,'addStock'])->name('products.addStock');
+
     Route::get('stocks', [StocksController::class, 'index']);
 });
 
