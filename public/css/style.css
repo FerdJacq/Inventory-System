@@ -7,3 +7,37 @@
     text-overflow: ellipsis;
 
 }
+
+.column {
+    float: left;
+    padding: 10px;
+}
+div.column:first-child{
+    width: 15%;
+}
+.column:nth-child(2){
+    width: 51%;
+}
+.column:nth-child(3){
+    width: 33.9%;
+}
+.column #myInput{
+    width: 100%;
+}
+.filter-group{
+    display: flex;
+    justify-content: space-around;
+}
+
+.row:after {
+    display: table;
+    clear: both;
+}
+.row{
+    place-items: center;
+}
+
+#RBWT{
+    width: 36px;
+}
+

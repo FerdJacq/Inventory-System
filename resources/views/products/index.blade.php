@@ -1,28 +1,26 @@
 @extends('home')
 
 @section('content')
-    <div class="row mb-4">
-        <div class="col">
-            <div class="row"><h1>Product List</h1></div>
-            <div class="row"><input id="myInput" type="text" placeholder="Search.."></div>
-        </div>
-        <div class="col text-right">
-            <a href="{{ route('products.create') }}" class="btn btn-primary">Create Product</a>
-        </div>
+<div><h1>Product List</h1></div>
+<div class="row">
+    <div class="column">
+      <a href="{{ route('products.create') }}" class="btn btn-primary">Create Product</a>
+      </div>
+      <div class="column">
+        <input id="myInput" type="text" placeholder="Search..">
+      </div>
+      <div class="column">
+      <div class="filter-group">
+              <label>Status</label>
+              <select style="width:150px;" id="mylist" onchange="filterFunction()" class="form-control">
+                <option>INSTOCK</option>
+                <option>Out of Stock</option>
+              </select>
+              <a> <img src="{{ url('storage/icons/icons8-refresh-50.png') }}" alt="" title=""  id="RBWT" /></a>
+            </div>
+            <span class="filter-icon"><i class="fa fa-filter"></i></span>
+      </div>
     </div>
-
-    <!-- Filter Form -->
-    <form action="{{ route('products.index') }}" method="GET">
-        <div class="form-group">
-            <label for="stock_status">Stock Status:</label>
-            <select name="stock_status" id="stock_status" class="form-control">
-                <option value="">All</option>
-                <option value="INSTOCK" {{ request('stock_status') == 'INSTOCK' ? 'selected' : '' }}>In Stock</option>
-                <option value="NOSTOCK" {{ request('stock_status') == 'NOSTOCK' ? 'selected' : '' }}>Out of Stock</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Filter</button>
-    </form>
 
     <table class="table">
         <thead>

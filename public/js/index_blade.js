@@ -7,8 +7,6 @@ $(document).ready(function(){
     });
   });
 
-
-
 $(document).ready(function(){
     $('#myTable').on('click', '.add-stock', function() {
         var product_id = $(this).data('product-id');
@@ -16,7 +14,6 @@ $(document).ready(function(){
         $('#addStockModal').modal('show');
     });
 });
-
 
     function submitForm() {
         var quantity = $('#quantity').val();
@@ -32,7 +29,6 @@ $(document).ready(function(){
             },
             success: function(data) {
                 alert(data.message);
-                window.history.back(); // Redirect to the previous page
             },
             error: function(xhr) {
                 alert('Error adding stock');
@@ -41,3 +37,33 @@ $(document).ready(function(){
     }
 
 
+    function filterFunction() {
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("mylist");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[5];
+          //console.log(i, td);
+          if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter) ===0) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+        }
+      }
+
+
+      //refresh button
+
+      $(document).ready(function () { 
+        $("button").button(); 
+
+        $("#RBWT").on('click', function () { 
+            location.reload(true);
+                console.log('ress')
+        }); 
+    }); 

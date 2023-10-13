@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <script src="{{ asset('/js/search.js') }} "></script>
+    <script src="{{ asset('/js/index_blade.js') }} "></script>
 
 </head>
 
@@ -26,12 +26,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/products">Products</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
                 </li>
             </ul>
         </div>
