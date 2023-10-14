@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StocksController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +31,12 @@ Route::middleware(['web', 'auth'])->group(function () {
     Route::post('products/add-stock', [ProductController::class,'addStock'])->name('products.addStock');
 
     Route::get('stocks', [StocksController::class, 'index']);
+
+
+    Route::get('/order', [OrderController::class, 'showOrderForm'])->name('order.form');
+    Route::post('/order/place', [OrderController::class, 'placeOrder'])->name('order.place');
+    Route::view('/order/success', 'orders.success')->name('order.success');
+    Route::get('/order-history', [OrderController::class, 'orderHistory'])->name('order.history');
 });
 
+    
