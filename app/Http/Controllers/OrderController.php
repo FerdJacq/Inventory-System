@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 
 class OrderController extends Controller
 {
@@ -55,25 +56,32 @@ class OrderController extends Controller
         'quantity' => 'required|integer|min:1',
     ]);
 
-    $product = Product::findOrFail($request->input('product_id'));
+    try {
+        $product = Product::lockForUpdate()->findOrFail($request->input('product_id'));
 
-    if ($product->quantity < $request->input('quantity')) {
-        return redirect()->route('order.form')->with('error', 'Insufficient stock for this product');
-    }
+        if ($product->quantity < $request->input('quantity')) {
+            return redirect()->route('order.form')->with('error', 'Insufficient stock for this product');
+        }
 
-    $totalPrice = $product->price * $request->input('quantity');
+        $totalPrice = $product->price * $request->input('quantity');
 
-    $order = new Order([
-        'user_id' => Auth::id(),
-        'product_id' => $product->id,
-        'quantity' => $request->input('quantity'),
-        'total_price' => $totalPrice,
-    ]);
+        $order = new Order([
+            'user_id' => Auth::id(),
+            'product_id' => $product->id,
+            'quantity' => $request->input('quantity'),
+            'total_price' => $totalPrice,
+        ]);
 
-    $order->save();
-
-    $product->decrement('quantity', $request->input('quantity'));
+        DB::transaction(function () use ($order, $product) {
+            $order->save();
+            $product->decrement('quantity', $order->quantity);
+            $product->increment('version'); // Increment the version
+        });
 
         return redirect()->route('order.success')->with('success', 'Order placed successfully');
+        } catch (QueryException $e) {
+            return redirect()->route('order.form')->with('error', 'Concurrency conflict. Please try again.');
+        }
     }
+
 }
