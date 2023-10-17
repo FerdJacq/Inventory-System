@@ -26,12 +26,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['web', 'auth'])->group(function () {
-    Route::resource('products', ProductController::class);
-
+   
     Route::post('products/add-stock', [ProductController::class,'addStock'])->name('products.addStock');
-
-    Route::get('stocks', [StocksController::class, 'index']);
-
 
     Route::get('/order', [OrderController::class, 'showOrderForm'])->name('order.form');
     Route::post('/order/place', [OrderController::class, 'placeOrder'])->name('order.place');
@@ -39,4 +35,4 @@ Route::middleware(['web', 'auth'])->group(function () {
     Route::get('/order-history', [OrderController::class, 'orderHistory'])->name('order.history');
 });
 
-    
+Route::resource('products', ProductController::class);

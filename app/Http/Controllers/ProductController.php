@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Log;
 
 class ProductController extends Controller
 {
@@ -100,5 +101,32 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('Stock added successfully');
     }
 
+
+    public function productVue(){
+        $productVue = Product::all();
+        return response()->json(
+            [
+                'products' => $productVue,
+                'message' => 'Products',
+                'code' => 200
+            ]
+        );
+    }
+
+    public function productVue_Add(Request $request) {
+        $productVue = new Product();
+        $productVue->name =  $request->id;
+        $productVue->name =  $request->name;
+        $productVue->description =  $request->description;
+        $productVue->quantity =  $request->quantity;
+        $productVue->price =  $request->price;
+        $productVue->image_path =  $request->image_path;
+        $productVue->save();
+
+        return response()->json([
+            'message' => 'Product Created Successfully',
+            'code' => 200
+        ]);
+    }
 }
 
