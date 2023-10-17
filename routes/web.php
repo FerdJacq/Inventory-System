@@ -26,13 +26,15 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['web', 'auth'])->group(function () {
-   
+
     Route::post('products/add-stock', [ProductController::class,'addStock'])->name('products.addStock');
 
     Route::get('/order', [OrderController::class, 'showOrderForm'])->name('order.form');
     Route::post('/order/place', [OrderController::class, 'placeOrder'])->name('order.place');
     Route::view('/order/success', 'orders.success')->name('order.success');
     Route::get('/order-history', [OrderController::class, 'orderHistory'])->name('order.history');
+
+    Route::get('/search', [SearchController::class, 'getSuggestions'])->name('search');
 });
 
 Route::resource('products', ProductController::class);

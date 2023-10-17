@@ -8,7 +8,8 @@
       </div>
       <div class="column">
         <input id="myInput" type="text" placeholder="Search..">
-      </div>
+        <div id="autocomplete-list"></div>
+    </div>
       <div class="column">
       <div class="filter-group">
               <label>Status</label>
@@ -90,3 +91,33 @@
     </div>
 </div>
 @endsection
+
+<script>
+    $(document).ready(function() {
+    $('#myInput').on('keyup', function() {
+        let query = $(this).val();
+
+        $.ajax({
+            url: 'http://127.0.0.1:8000/search',
+            method: 'GET',
+            data: { query: query },
+            success: function(response) {
+                let suggestions = response;
+                let autocomplete = $('#autocomplete-list');
+
+                autocomplete.empty();
+
+                suggestions.forEach(function(item) {
+                    let option = $('<div>').text(item);
+                    autocomplete.append(option);
+                });
+
+                $('#autocomplete-list div').on('click', function() {
+                    $('#myInput').val($(this).text());
+                    autocomplete.empty();
+                });
+            }
+        });
+    });
+});
+</script>
