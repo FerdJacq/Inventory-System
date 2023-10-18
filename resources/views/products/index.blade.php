@@ -98,7 +98,7 @@
         let query = $(this).val();
 
         $.ajax({
-            url: 'http://127.0.0.1:8000/search',
+            url: "{{route('search')}}",
             method: 'GET',
             data: { query: query },
             success: function(response) {

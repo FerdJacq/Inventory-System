@@ -101,6 +101,7 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('Stock added successfully');
     }
 
+// ======================= VUE Controller ==========================
 
     public function productVue(){
         $productVue = Product::all();
@@ -125,6 +126,45 @@ class ProductController extends Controller
 
         return response()->json([
             'message' => 'Product Created Successfully',
+            'code' => 200
+        ]);
+    }
+
+    public function productVue_Del($id){
+        $productVue = Product::find($id);
+        if($productVue){
+            $productVue->delete();
+            return response()->json([
+                'message' => "Product has been deleted",
+                'code' => 200,
+            ]);
+        }else{
+            return response()->json([
+                'message' => "Product with the id:$id is not existing!",
+            ]);
+        }
+    }
+
+    public function productVue_Edit($id){
+        $productVue = Product::find($id);
+        if($productVue){
+            $productVue->get();
+            return response()->json($productVue);
+        }
+    }
+
+    public function productVue_Update($id, Request $request){
+        $productVue = Product::where('id',$id)->first();
+        $productVue->id =  $request->id;
+        $productVue->name =  $request->name;
+        $productVue->description =  $request->description;
+        $productVue->quantity =  $request->quantity;
+        $productVue->price =  $request->price;
+        $productVue->image_path =  $request->image_path;
+        $productVue->save();
+
+        return response()->json([
+            'message' => 'Product Updated Successfully',
             'code' => 200
         ]);
     }

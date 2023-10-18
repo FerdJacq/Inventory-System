@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StocksController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SearchController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +37,8 @@ Route::middleware(['web', 'auth'])->group(function () {
     Route::get('/order-history', [OrderController::class, 'orderHistory'])->name('order.history');
 
     Route::get('/search', [SearchController::class, 'getSuggestions'])->name('search');
+
+    Route::resource('products', ProductController::class);
 });
 
-Route::resource('products', ProductController::class);
+
