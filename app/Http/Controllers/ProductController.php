@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Product;
 use Log;
 
@@ -115,8 +116,33 @@ class ProductController extends Controller
     }
 
     public function productVue_Add(Request $request) {
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'quantity' => 'required|integer|min:1',
+            'price' => 'required|numeric|min:0.01',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+    
+        if ($validator->fails()) {
+            return
+            
+            $validator->getMessageBag()->toArray();
+        }
+
+        // $request->validate([
+        //     'name' => 'required',
+        //     'quantity' => 'required|integer|min:1',
+        //     'price' => 'required|numeric|min:0.01',
+        //     'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        // ]);
+
+        // if($request->fails()){
+        //     return $request->getMessageBag()->toArray();
+        // }
+
         $productVue = new Product();
-        $productVue->name =  $request->id;
+        $productVue->id =  $request->id;
         $productVue->name =  $request->name;
         $productVue->description =  $request->description;
         $productVue->quantity =  $request->quantity;
