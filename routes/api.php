@@ -25,3 +25,4 @@ Route::post('addproduct', [ProductController::class, 'productVue_add']);
 Route::delete('delproduct/{id}', [ProductController::class, 'productVue_del']);
 Route::get('editproduct/{id}/edit',[ProductController::class, 'productVue_edit']);
 Route::post('updateproduct/{id}',[ProductController::class,'productVue_update']);
+Route::post('addstock/{$id}',[ProductController::class,'productVue_addStock']);

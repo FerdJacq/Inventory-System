@@ -194,5 +194,20 @@ class ProductController extends Controller
             'code' => 200
         ]);
     }
+
+    public function productVue_addStock(Request $request, $id)
+    {
+    $request->validate([
+        'quantity' => 'required|integer|min:1',
+        'product_id' => 'required|exists:products,id'
+    ]);
+
+    $productVue = Product::findOrFail($id);
+    $productVue->quantity = $request->input('addStock');
+    $productVue->save();
+    return response()->json($productVue);
+
+        
+    }
 }
 
