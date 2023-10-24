@@ -116,18 +116,19 @@ class ProductController extends Controller
     }
 
     public function productVue_Add(Request $request) {
-
+        $message = [
+                'name.required' => "This name is required!"
+            ];
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'quantity' => 'required|integer|min:1',
+            'quantity' => 'required|integer|max:1',
             'price' => 'required|numeric|min:0.01',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     
+
         if ($validator->fails()) {
-            return
-            
-            $validator->getMessageBag()->toArray();
+            return $validator->getMessageBag()->toArray();
         }
 
         // $request->validate([

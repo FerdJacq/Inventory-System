@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StocksController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\RegistersController;
 
 
 /*
@@ -22,6 +23,14 @@ use App\Http\Controllers\SearchController;
 Route::get('/', function () {
     return view('auth.login');
 });
+
+Route::get('/logins', [App\Http\Controllers\LoginsController::class,'logins'])->name('login');
+Route::post('/api_login', [App\Http\Controllers\LoginsController::class,'user_login'])->name('home');
+
+Route::get('registers',[RegistersController::class,'registers'])->name('register');
+Route::post('api_register',[RegistersController::class,'api_register'])->name('login');
+
+Route::get('/logout', [App\Http\Controllers\LoginsController::class,'logout'])->name('login');
 
 Auth::routes();
 

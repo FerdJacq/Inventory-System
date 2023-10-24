@@ -33,6 +33,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/order-history">Order History</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">logout</a>
+                </li>
             </ul>
         </div>
     </nav>
